@@ -1,11 +1,19 @@
 document.addEventListener("DOMContentLoaded", function () {
     showCurrentTime();
     requestNotificationPermission();
+    preloadSound();
 });
 
-// ตั้งค่าเสียงแจ้งเตือน (สร้างใหม่ทุกครั้งที่เรียก)
+// โหลดไฟล์เสียงล่วงหน้า
+let audio = new Audio("mixkit-happy-bells-notification-937.wav");
+
+function preloadSound() {
+    audio.load();
+}
+
+// เล่นเสียงแจ้งเตือน
 function playReminderSound() {
-    let audio = new Audio("mixkit-happy-bells-notification-937.wav");
+    audio.currentTime = 0;
     audio.play().then(() => {
         console.log("🔊 เล่นเสียงแจ้งเตือนสำเร็จ");
     }).catch(error => {
@@ -47,15 +55,25 @@ function requestNotificationPermission() {
 // ฟังก์ชันแจ้งเตือน Notification + เสียง
 function showNotification(medicineName) {
     console.log(`🔔 แจ้งเตือนยา: ${medicineName}`);
-    
+
     if ("Notification" in window && Notification.permission === "granted") {
-        new Notification("ถึงเวลาทานยา", {
+        let notification = new Notification("ถึงเวลาทานยา", {
             body: `กรุณาทานยา: ${medicineName}`,
             icon: "apps.47691.14209683806471457.7cc3f919-a3c0-4134-ae05-abe9b560f9df.png"
         });
-    }
 
-    playReminderSound(); // เล่นเสียงทุกครั้งที่แจ้งเตือน
+        // ถ้าผู้ใช้ไม่กดปิด ให้เล่นเสียงซ้ำ
+        notification.onshow = () => {
+            playReminderSound();
+            setTimeout(() => {
+                if (notification) {
+                    playReminderSound();
+                }
+            }, 5000); // เล่นเสียงซ้ำทุก 5 วินาที ถ้ายังไม่ได้กดปิด
+        };
+    } else {
+        alert("⚠️ กรุณาอนุญาตให้แจ้งเตือนในเบราว์เซอร์ของคุณ");
+    }
 }
 
 // เพิ่มการแจ้งเตือนใหม่
