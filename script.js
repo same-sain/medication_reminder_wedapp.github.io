@@ -1,31 +1,33 @@
 document.addEventListener("DOMContentLoaded", function () {
     showCurrentTime();
     requestNotificationPermission();
-    preloadSound();
 });
 
-// โหลดไฟล์เสียงล่วงหน้า
-let audio = new Audio("mixkit-happy-bells-notification-937.wav");
+// รับ audio element จาก HTML
+const reminderAudio = new Audio("mixkit-happy-bells-notification-937.wav");
 
-function preloadSound() {
-    audio.load();
-}
-
-// เล่นเสียงแจ้งเตือน
-function playReminderSound() {
-    audio.currentTime = 0;
-    audio.play().then(() => {
-        console.log("🔊 เล่นเสียงแจ้งเตือนสำเร็จ");
-    }).catch(error => {
-        console.log("❌ ไม่สามารถเล่นเสียงแจ้งเตือนได้:", error);
+// ให้ผู้ใช้กดปุ่มเปิดเสียงก่อนใช้งาน
+const enableSoundButton = document.getElementById("enableSound");
+if (enableSoundButton) {
+    enableSoundButton.addEventListener("click", function () {
+        reminderAudio.play().then(() => {
+            console.log("🔊 เล่นเสียงแจ้งเตือนสำเร็จ");
+        }).catch(error => {
+            console.log("❌ ไม่สามารถเล่นเสียงแจ้งเตือนได้:", error);
+        });
+        this.style.display = "none"; // ซ่อนปุ่มหลังจากกด
     });
 }
 
-// ให้ผู้ใช้กดปุ่มเปิดเสียงก่อนใช้งาน
-document.getElementById("enableSound").addEventListener("click", function () {
-    playReminderSound();
-    this.style.display = "none"; // ซ่อนปุ่มหลังจากกด
-});
+// ฟังก์ชันเล่นเสียงแจ้งเตือน
+function playReminderSound() {
+    reminderAudio.currentTime = 0; // เริ่มเสียงใหม่ทุกครั้ง
+    reminderAudio.play().then(() => {
+        console.log("🔊 เล่นเสียงสำเร็จ");
+    }).catch(error => {
+        console.log("❌ เล่นเสียงล้มเหลว:", error);
+    });
+}
 
 // แสดงเวลาปัจจุบัน
 function showCurrentTime() {
@@ -55,21 +57,15 @@ function requestNotificationPermission() {
 // ฟังก์ชันแจ้งเตือน Notification + เสียง
 function showNotification(medicineName) {
     console.log(`🔔 แจ้งเตือนยา: ${medicineName}`);
-
+    
     if ("Notification" in window && Notification.permission === "granted") {
         let notification = new Notification("ถึงเวลาทานยา", {
             body: `กรุณาทานยา: ${medicineName}`,
             icon: "apps.47691.14209683806471457.7cc3f919-a3c0-4134-ae05-abe9b560f9df.png"
         });
-
-        // ถ้าผู้ใช้ไม่กดปิด ให้เล่นเสียงซ้ำ
+        
         notification.onshow = () => {
             playReminderSound();
-            setTimeout(() => {
-                if (notification) {
-                    playReminderSound();
-                }
-            }, 5000); // เล่นเสียงซ้ำทุก 5 วินาที ถ้ายังไม่ได้กดปิด
         };
     } else {
         alert("⚠️ กรุณาอนุญาตให้แจ้งเตือนในเบราว์เซอร์ของคุณ");
@@ -115,7 +111,6 @@ function checkReminders() {
 
     document.querySelectorAll('.reminder-item').forEach(item => {
         let time = item.getAttribute('data-time');
-        console.log(`👉 เทียบกับ: ${time}`);
         
         if (time === currentTime) {
             console.log(`✅ ถึงเวลา! แจ้งเตือน: ${item.textContent.split(" - ")[0]}`);
@@ -124,7 +119,7 @@ function checkReminders() {
     });
 }
 
-// ให้เริ่มตรวจสอบเวลาทุก 10 วินาที (ทำให้แม่นยำขึ้น)
+// เรียกใช้ checkReminders ทุก 10 วินาที
 setInterval(checkReminders, 10000);
 
 // แปลงเวลาให้อ่านง่าย
