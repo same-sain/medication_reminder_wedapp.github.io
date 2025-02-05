@@ -1,0 +1,65 @@
+/* ปรับสีให้เหมาะกับผู้สูงอายุ */
+body {
+    background-color: #F5F5DC; /* สีเบจอ่อน */
+    color: #333;
+    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: #FFF8DC; /* สีครีมอ่อน */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 550px;
+    height: auto;
+}
+
+.header {
+    background-color: #FFD700; /* สีเหลืองทอง */
+    padding: 20px;
+    border-radius: 15px 15px 0 0;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.reminder-input-container label {
+    font-size: 19px;
+    color: #333;
+}
+
+input, button {
+    font-size: 19px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.add-reminder-btn {
+    background-color: #32CD32; /* สีเขียวสดใส */
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.reminder-list {
+    list-style: none;
+    padding: 0;
+}
+
+.reminder-item {
+    background-color: #FFFFFF;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+}

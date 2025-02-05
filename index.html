@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เว็บแอปเตือนความจำการทานยา</title>
+
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    
+    <div class="main">
+        <div class="container">
+            <div class="header">
+                <h1>เเจ้งเตือนการทานยา</h1>
+                <div class="time" id="currentTime">
+                    <!-- เวลาจะแสดงที่นี่ -->
+                </div>
+            </div>
+
+            <div class="reminder-input-container">
+                <div class="medicine-name">
+                    <label for="medicineName">ข้อความเเจ้งเตือน:</label>
+                    <input type="text" id="medicineName" placeholder="กรอกข้อความ">
+                </div>
+
+                <div class="time-reminder">
+                    <label for="reminderTime">เวลาที่ต้องการเตือน:</label>
+                    <input type="time" id="reminderTime">
+                </div>
+
+                <button class="add-reminder-btn" onclick="addReminder()">เพิ่มการเตือน</button>
+            </div>
+
+            <div class="reminder-container">
+                <ul class="reminder-list" id="reminders">
+                    <!-- รายการเตือนความจำจะแสดงที่นี่ -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script JS -->
+    <script src="./script.js"></script>
+
+</body>
+</html>
