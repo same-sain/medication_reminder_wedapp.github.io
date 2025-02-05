@@ -3,26 +3,21 @@ document.addEventListener("DOMContentLoaded", function () {
     requestNotificationPermission();
 });
 
-// ตั้งค่าเสียงแจ้งเตือน
-let audio = new Audio("mixkit-happy-bells-notification-937.wav");
-
-document.body.addEventListener("click", function () {
-    audio.play().then(() => {
-        console.log("เสียงพร้อมใช้งาน");
-        document.getElementById("enableSound").style.display = "none"; // ซ่อนปุ่ม
-    }).catch(error => {
-        console.log("ต้องการให้ผู้ใช้โต้ตอบก่อน");
-    });
-}, { once: true }); // ให้ทำงานแค่ครั้งเดียว
-
-// ฟังก์ชันเล่นเสียงแจ้งเตือน
+// ตั้งค่าเสียงแจ้งเตือน (สร้างใหม่ทุกครั้งที่เรียก)
 function playReminderSound() {
-    console.log("🔊 กำลังเล่นเสียงแจ้งเตือน...");
-    audio.currentTime = 0; // รีเซ็ตเสียงเพื่อให้เล่นซ้ำได้
-    audio.play().catch(error => {
-        console.log("❌ ไม่สามารถเล่นเสียงอัตโนมัติได้:", error);
+    let audio = new Audio("mixkit-happy-bells-notification-937.wav");
+    audio.play().then(() => {
+        console.log("🔊 เล่นเสียงแจ้งเตือนสำเร็จ");
+    }).catch(error => {
+        console.log("❌ ไม่สามารถเล่นเสียงแจ้งเตือนได้:", error);
     });
 }
+
+// ให้ผู้ใช้กดปุ่มเปิดเสียงก่อนใช้งาน
+document.getElementById("enableSound").addEventListener("click", function () {
+    playReminderSound();
+    this.style.display = "none"; // ซ่อนปุ่มหลังจากกด
+});
 
 // แสดงเวลาปัจจุบัน
 function showCurrentTime() {
@@ -76,7 +71,7 @@ function addReminder() {
     const reminderList = document.getElementById("reminders");
     const listItem = document.createElement("li");
     listItem.classList.add("reminder-item");
-    listItem.setAttribute("data-time", reminderTime); // เก็บเวลาไว้
+    listItem.setAttribute("data-time", reminderTime);
     listItem.innerHTML = `
         <span>${medicineName} - ${convertToThaiTimeFormat(reminderTime)}</span>
         <button class="delete-btn" onclick="removeReminder(this)">ลบ</button>
@@ -93,7 +88,7 @@ function removeReminder(button) {
     listItem.remove();
 }
 
-// ตรวจสอบเวลาทุก 30 วินาที
+// ตรวจสอบเวลาทุก 10 วินาที
 function checkReminders() {
     let now = new Date();
     let currentTime = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
@@ -106,13 +101,13 @@ function checkReminders() {
         
         if (time === currentTime) {
             console.log(`✅ ถึงเวลา! แจ้งเตือน: ${item.textContent.split(" - ")[0]}`);
-            showNotification(item.textContent.split(" - ")[0]); // แจ้งเตือนชื่อยา
+            showNotification(item.textContent.split(" - ")[0]);
         }
     });
 }
 
-// ให้เริ่มตรวจสอบเวลาทุก 30 วินาที
-setInterval(checkReminders, 30000);
+// ให้เริ่มตรวจสอบเวลาทุก 10 วินาที (ทำให้แม่นยำขึ้น)
+setInterval(checkReminders, 10000);
 
 // แปลงเวลาให้อ่านง่าย
 function convertToThaiTimeFormat(timeString) {
