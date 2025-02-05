@@ -63,3 +63,21 @@ input, button {
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
     font-size: 18px;
 }
+
+#enableSound {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #ffcc00; /* สีเหลือง */
+    color: black;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#enableSound:hover {
+    background-color: #ffaa00; /* สีส้มอ่อน */
+}
