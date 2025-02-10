@@ -130,19 +130,6 @@ function convertToThaiTimeFormat(timeString) {
 
 
 
-// 🔔 ฟังก์ชันแจ้งเตือนผ่าน Browser
-function notifyBrowser(message) {
-    if (Notification.permission === "granted") {
-        new Notification("🔔 แจ้งเตือน", { body: message });
-    } else if (Notification.permission !== "denied") {
-        Notification.requestPermission().then(permission => {
-            if (permission === "granted") {
-                new Notification("🔔 แจ้งเตือน", { body: message });
-            }
-        });
-    }
-}
-
 // ✅ ฟังก์ชันแจ้งเตือนผ่าน LINE Notify
 async function sendLineMessage(message) {
     let lineToken = document.getElementById("lineToken").value; // ดึง Token จากช่องป้อนข้อมูล
@@ -176,4 +163,4 @@ async function sendLineMessage(message) {
 
 // 🔥 ทดสอบแจ้งเตือนทั้ง Browser & LINE
 sendLineMessage("📢 แจ้งเตือนจาก JavaScript 🚀");
-notifyBrowser("📢 ทดสอบแจ้งเตือนใน Browser!");
+
