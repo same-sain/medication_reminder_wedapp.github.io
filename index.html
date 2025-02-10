@@ -10,6 +10,7 @@
 </head>
 <body>
     <button id="enableSound" onclick="enableSound()">เปิดใช้งานเสียงแจ้งเตือน</button>
+  
     <div class="main">
         <div class="container">
             <div class="header">
@@ -18,7 +19,10 @@
                     <!-- เวลาจะแสดงที่นี่ -->
                 </div>
             </div>
-
+            <div class="token-input-container">
+                <label for="lineToken">🔑 LINE Notify Token:</label>
+                <input type="text" id="lineToken" placeholder="กรอก LINE Token">
+            </div>  
             <div class="reminder-input-container">
                 <div class="medicine-name">
                     <label for="medicineName">ข้อความเเจ้งเตือน:</label>
