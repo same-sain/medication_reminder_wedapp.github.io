@@ -3,10 +3,8 @@ document.addEventListener("DOMContentLoaded", function () {
     requestNotificationPermission();
 });
 
-// รับ audio element จาก HTML
 const reminderAudio = new Audio("mixkit-happy-bells-notification-937.wav");
 
-// ให้ผู้ใช้กดปุ่มเปิดเสียงก่อนใช้งาน
 const enableSoundButton = document.getElementById("enableSound");
 if (enableSoundButton) {
     enableSoundButton.addEventListener("click", function () {
@@ -15,13 +13,12 @@ if (enableSoundButton) {
         }).catch(error => {
             console.log("❌ ไม่สามารถเล่นเสียงแจ้งเตือนได้:", error);
         });
-        this.style.display = "none"; // ซ่อนปุ่มหลังจากกด
+        this.style.display = "none"; 
     });
 }
 
-// ฟังก์ชันเล่นเสียงแจ้งเตือน
 function playReminderSound() {
-    reminderAudio.currentTime = 0; // เริ่มเสียงใหม่ทุกครั้ง
+    reminderAudio.currentTime = 0; 
     reminderAudio.play().then(() => {
         console.log("🔊 เล่นเสียงสำเร็จ");
     }).catch(error => {
@@ -29,7 +26,7 @@ function playReminderSound() {
     });
 }
 
-// แสดงเวลาปัจจุบัน
+
 function showCurrentTime() {
     const timeElement = document.getElementById("currentTime");
     setInterval(() => {
@@ -43,7 +40,7 @@ function showCurrentTime() {
     }, 1000);
 }
 
-// ขออนุญาต Notification
+
 function requestNotificationPermission() {
     if ("Notification" in window) {
         Notification.requestPermission().then(permission => {
@@ -54,7 +51,7 @@ function requestNotificationPermission() {
     }
 }
 
-// ฟังก์ชันแจ้งเตือน Notification + เสียง
+
 function showNotification(medicineName) {
     console.log(`🔔 แจ้งเตือนยา: ${medicineName}`);
     
@@ -72,7 +69,7 @@ function showNotification(medicineName) {
     }
 }
 
-// เพิ่มการแจ้งเตือนใหม่
+
 function addReminder() {
     const medicineName = document.getElementById("medicineName").value.trim();
     const reminderTime = document.getElementById("reminderTime").value;
@@ -96,13 +93,13 @@ function addReminder() {
     document.getElementById("reminderTime").value = "";
 }
 
-// ลบการแจ้งเตือน
+
 function removeReminder(button) {
     const listItem = button.parentElement;
     listItem.remove();
 }
 
-// ตรวจสอบเวลาทุก 10 วินาที
+
 function checkReminders() {
     let now = new Date();
     let currentTime = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
@@ -119,11 +116,12 @@ function checkReminders() {
     });
 }
 
-// เรียกใช้ checkReminders ทุก 10 วินาที
+
 setInterval(checkReminders, 10000);
 
-// แปลงเวลาให้อ่านง่าย
+
 function convertToThaiTimeFormat(timeString) {
     const [hours, minutes] = timeString.split(":");
     return `${hours}:${minutes} น.`;
 }
+
