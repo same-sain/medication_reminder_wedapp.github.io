@@ -1,6 +1,6 @@
-/* ปรับสีให้เหมาะกับผู้สูงอายุ */
+
 body {
-    background-color: #F5F5DC; /* สีเบจอ่อน */
+    background-color: #F5F5DC;
     color: #333;
     font-size: 18px;
     font-family: 'Poppins', sans-serif;
@@ -14,7 +14,7 @@ body {
 }
 
 .container {
-    background-color: #FFF8DC; /* สีครีมอ่อน */
+    background-color: #FFF8DC; 
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -23,7 +23,7 @@ body {
 }
 
 .header {
-    background-color: #FFD700; /* สีเหลืองทอง */
+    background-color: #FFD700; 
     padding: 20px;
     border-radius: 15px 15px 0 0;
     text-align: center;
@@ -44,7 +44,7 @@ input, button {
 }
 
 .add-reminder-btn {
-    background-color: #32CD32; /* สีเขียวสดใส */
+    background-color: #32CD32;
     color: white;
     font-weight: bold;
     cursor: pointer;
@@ -70,7 +70,7 @@ input, button {
     padding: 10px 20px;
     font-size: 18px;
     font-weight: bold;
-    background-color: #ffcc00; /* สีเหลือง */
+    background-color: #ffcc00;
     color: black;
     border: none;
     border-radius: 10px;
@@ -79,5 +79,6 @@ input, button {
 }
 
 #enableSound:hover {
-    background-color: #ffaa00; /* สีส้มอ่อน */
+    background-color: #ffaa00; 
 }
+
