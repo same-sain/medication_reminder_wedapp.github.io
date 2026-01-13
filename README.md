@@ -56,4 +56,4 @@ Medication Reminder WebApp เป็นเว็บแอปที่ผู้�
 
 ## ผู้พัฒนา
 
-- Zen Samma (same-sain)
+- Nitiwat Aurarak
